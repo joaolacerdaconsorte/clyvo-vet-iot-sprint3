@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard", "id": "bb1", "top": -175.8, "left": -102.8, "attrs": {} },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 28.8, "left": -23.96, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 48.3, "left": 186.6, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -157.2,
+      "left": 32.6,
+      "attrs": { "color": "blue" }
+    },
+    { "type": "wokwi-led", "id": "led2", "top": -157.2, "left": -25, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -157.2,
+      "left": 3.8,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -81.6,
+      "left": -29.35,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -72,
+      "left": -0.55,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": -72,
+      "left": 28.25,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3", "dht1:VCC", "orange", [ "h-14.21", "v86.4", "h-76.8" ] ],
+    [ "dht1:GND", "esp:GND.3", "black", [ "v0" ] ],
+    [ "dht1:SDA", "esp:4", "gray", [ "v0" ] ],
+    [ "led2:A", "bb1:9t.b", "", [ "$bb" ] ],
+    [ "led2:C", "bb1:8t.b", "", [ "$bb" ] ],
+    [ "led1:A", "bb1:15t.b", "", [ "$bb" ] ],
+    [ "led1:C", "bb1:14t.b", "", [ "$bb" ] ],
+    [ "led3:A", "bb1:12t.b", "", [ "$bb" ] ],
+    [ "led3:C", "bb1:11t.b", "", [ "$bb" ] ],
+    [ "r1:1", "bb1:9t.c", "", [ "$bb" ] ],
+    [ "r1:2", "bb1:9b.g", "", [ "$bb" ] ],
+    [ "r3:1", "bb1:15t.d", "", [ "$bb" ] ],
+    [ "r3:2", "bb1:15b.h", "", [ "$bb" ] ],
+    [ "r2:1", "bb1:12t.d", "", [ "$bb" ] ],
+    [ "r2:2", "bb1:12b.h", "", [ "$bb" ] ],
+    [ "esp:25", "bb1:9b.h", "red", [ "v0" ] ],
+    [ "esp:GND.1", "bb1:8t.c", "red", [ "h0" ] ],
+    [ "esp:26", "bb1:12b.i", "green", [ "h0" ] ],
+    [ "bb1:11t.c", "esp:GND.3", "green", [ "v0" ] ],
+    [ "esp:27", "bb1:15b.i", "blue", [ "h0" ] ],
+    [ "bb1:14t.c", "esp:GND.3", "blue", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

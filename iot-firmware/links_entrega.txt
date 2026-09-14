@@ -1,0 +1,19 @@
+SQUAD: CLYVO VET
+ENTREGA: DISRUPTIVE ARCHITECTURES: IOT, IOB & GENERATIVE IA — SPRINT 1 (2026)
+
+Integrantes da Equipe (Turma: 2TDSPW):
+- João Vitor Lacerda — RM 565565
+- Kauan Vieira de Lima — RM 565403
+- Murillo Fernandes Carapia — RM 564969
+
+========================================================================
+1. LINK DO REPOSITÓRIO GITHUB DO PROJETO DE IOT (PÚBLICO):
+https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint1
+
+========================================================================
+2. LINK DA SIMULAÇÃO INTERATIVA NO WOKWI:
+https://wokwi.com/projects/464135788106122241
+
+========================================================================
+*(Nota: Conforme alinhamento estratégico e escopo de entrega do time, a gravação de vídeo explicativo não foi incluída nesta Sprint. A simulação virtual de hardware e a documentação completa podem ser validadas nos links acima).*
+========================================================================

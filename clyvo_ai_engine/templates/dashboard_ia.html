@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Clyvo Vet — PetCare 360 AI Core & IoT Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary: #ed145b;
+      --primary-dark: #b8003f;
+      --dark-bg: #0f172a;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .navbar {
+      background-color: #0f172a;
+      border-bottom: 3px solid var(--primary);
+      padding: 14px 0;
+    }
+    .badge-fiap {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      background: #ffffff;
+    }
+    .card-header {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .metric-box {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .metric-value {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .metric-label {
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+    .risk-badge {
+      font-size: 18px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      display: inline-block;
+    }
+    .risk-BAIXO { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .risk-MODERADO { background-color: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+    .risk-ALTO { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .risk-CRITICO { background-color: #450a0a; color: #ffffff; border: 1px solid #ef4444; }
+
+    .terminal-console {
+      background: #090d16;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border-radius: 8px;
+      height: 140px;
+      overflow-y: auto;
+      border: 1px solid #1e293b;
+    }
+    .btn-fiap {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    .btn-fiap:hover {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+    }
+    .soap-section {
+      background: #f8fafc;
+      border-left: 3px solid var(--primary);
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      border-radius: 0 6px 6px 0;
+    }
+    .soap-label {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar navbar-dark">
+    <div class="container-fluid px-4">
+      <div class="d-flex align-items-center gap-3">
+        <span class="badge badge-fiap px-3 py-2">FIAP 2026 — 2TDSPW</span>
+        <span class="text-white fw-bold fs-5">CLYVO VET &mdash; AI Core & IoT Wearable</span>
+        <span class="text-white-50 small border-start ps-3 border-secondary">Disruptive Architectures: IoT, IoB &amp; Generative IA</span>
+      </div>
+      <div class="text-end text-white-50 small">
+        Sprint 3 &bull; Integrantes: <strong class="text-white">João Vitor Lacerda, Kauan Vieira, Murillo Carapia, Pedro Previtali</strong>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Container Principal -->
+  <div class="container-fluid px-4 py-4">
+    
+    <!-- Linha Superior de Status da Arquitetura -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card p-3 d-flex flex-row align-items-center gap-3">
+          <div class="bg-primary-subtle text-primary p-3 rounded-circle fs-4"><i class="bi bi-cpu"></i></div>
+          <div>
+            <div class="fw-bold fs-6">ESP32 Wearable</div>
+            <div class="text-muted small">Sensor DHT22 &bull; MQTT HiveMQ</div>
+            <span class="badge bg-success-subtle text-success mt-1">Conectado (5s)</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 d-flex flex-row align-items-center gap-3">
+          <div class="bg-warning-subtle text-warning p-3 rounded-circle fs-4"><i class="bi bi-diagram-3"></i></div>
+          <div>
+            <div class="fw-bold fs-6">Modelo Preditivo ML</div>
+            <div class="text-muted small">Random Forest &bull; 93.4% Acc</div>
+            <span class="badge bg-primary-subtle text-primary mt-1">Classificação IRP</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 d-flex flex-row align-items-center gap-3">
+          <div class="bg-danger-subtle text-danger p-3 rounded-circle fs-4"><i class="bi bi-chat-heart"></i></div>
+          <div>
+            <div class="fw-bold fs-6">IA Generativa Copilot</div>
+            <div class="text-muted small">Tutor &amp; Prontuário SOAP</div>
+            <span class="badge bg-success-subtle text-success mt-1">Grounded Veterinário</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 d-flex flex-row align-items-center gap-3">
+          <div class="bg-info-subtle text-info p-3 rounded-circle fs-4"><i class="bi bi-shield-check"></i></div>
+          <div>
+            <div class="fw-bold fs-6">API REST / Integration</div>
+            <div class="text-muted small">Spring Boot &amp; Python Flask</div>
+            <span class="badge bg-success-subtle text-success mt-1">Status 200 OK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha Principal de 3 Colunas -->
+    <div class="row g-4">
+      
+      <!-- Coluna 1: Ingestão de Dados & Telemetria IoT -->
+      <div class="col-lg-4">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-broadcast text-primary me-2"></i>1. Telemetria IoT &amp; Perfil</span>
+            <span class="badge bg-light text-dark border">Entrada de Dados</span>
+          </div>
+          <div class="card-body">
+            
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted">SELECIONAR PACIENTE DE DEMONSTRAÇÃO:</label>
+              <select class="form-select form-select-lg fw-bold" id="select-paciente" onchange="carregarPaciente()">
+                <option value="rex" selected>Rex (Golden Retriever - Suspeita de Febre)</option>
+                <option value="luna">Luna (Gata Persa - Saudável)</option>
+                <option value="thor">Thor (Buldogue Francês - Risco Crítico Térmico)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-light rounded-3 mb-3 border">
+              <div class="row g-2 mb-2">
+                <div class="col-6">
+                  <div class="small text-muted">Espécie / Raça:</div>
+                  <div class="fw-bold" id="p-especie">Canino - Golden</div>
+                </div>
+                <div class="col-6">
+                  <div class="small text-muted">Idade / Porte:</div>
+                  <div class="fw-bold" id="p-idade">4.5 anos / Grande</div>
+                </div>
+              </div>
+              <div class="small text-muted">Histórico Clínico Cadastrado:</div>
+              <div class="small fst-italic text-secondary" id="p-historico">
+                Apresentou prostração nas últimas 24 horas. Vacina V10 vencida há 45 dias.
+              </div>
+            </div>
+
+            <!-- Controles Dinâmicos de Telemetria IoT -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label small fw-bold mb-0">Temperatura Corporal IoT (Sensor DHT22):</label>
+                <span class="badge bg-dark fw-bold fs-6" id="val-temp">39.8 °C</span>
+              </div>
+              <input type="range" class="form-range" id="input-temp" min="36.0" max="42.0" step="0.1" value="39.8" oninput="atualizarSliders()">
+              <div class="d-flex justify-content-between small text-muted">
+                <span>36.0°C (Hipotermia)</span>
+                <span>38.5°C (Normal)</span>
+                <span>42.0°C (Febre Alta)</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label small fw-bold mb-0">Índice de Atividade Diária IoB (Acelerômetro):</label>
+                <span class="badge bg-secondary fw-bold fs-6" id="val-ativ">28 / 100</span>
+              </div>
+              <input type="range" class="form-range" id="input-ativ" min="5" max="100" step="1" value="28" oninput="atualizarSliders()">
+              <div class="d-flex justify-content-between small text-muted">
+                <span>0 (Letárgico)</span>
+                <span>50 (Moderado)</span>
+                <span>100 (Hiperativo)</span>
+              </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small fw-bold">Atraso Vacinal (dias):</label>
+                <input type="number" class="form-control" id="input-vacina" value="45" onchange="executarAnalise()">
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold">Variação de Peso (%):</label>
+                <input type="number" class="form-control" id="input-peso" value="-3.2" step="0.5" onchange="executarAnalise()">
+              </div>
+            </div>
+
+            <button class="btn btn-fiap w-100 py-2 d-flex align-items-center justify-content-center gap-2 shadow-sm" onclick="executarAnalise()">
+              <i class="bi bi-play-circle-fill"></i> Executar Análise com IA em Tempo Real
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Machine Learning Preditivo -->
+      <div class="col-lg-4">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-activity text-danger me-2"></i>2. Machine Learning Preditivo (IRP)</span>
+            <span class="badge bg-dark">Random Forest</span>
+          </div>
+          <div class="card-body">
+            
+            <div class="text-center py-2 mb-3">
+              <div class="text-muted small fw-bold text-uppercase mb-2">Índice de Risco Preventivo (IRP)</div>
+              <div class="risk-badge risk-ALTO" id="risk-badge">ALTO</div>
+              <div class="mt-2 text-muted small">Score de Severidade: <strong class="text-dark fs-5" id="risk-score">78.9%</strong></div>
+            </div>
+
+            <!-- Barras de Distribuição de Probabilidade do Modelo -->
+            <div class="mb-4">
+              <div class="small fw-bold text-muted mb-2">PROBABILIDADE DAS CLASSES DE RISCO:</div>
+              
+              <div class="mb-2">
+                <div class="d-flex justify-content-between small"><span>Baixo Risco:</span><span id="prob-baixo">1.2%</span></div>
+                <div class="progress" style="height: 6px;"><div class="progress-bar bg-success" id="bar-baixo" style="width: 1.2%"></div></div>
+              </div>
+              <div class="mb-2">
+                <div class="d-flex justify-content-between small"><span>Moderado:</span><span id="prob-mod">12.5%</span></div>
+                <div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" id="bar-mod" style="width: 12.5%"></div></div>
+              </div>
+              <div class="mb-2">
+                <div class="d-flex justify-content-between small"><span>Alto Risco:</span><span id="prob-alto">82.3%</span></div>
+                <div class="progress" style="height: 6px;"><div class="progress-bar bg-danger" id="bar-alto" style="width: 82.3%"></div></div>
+              </div>
+              <div class="mb-2">
+                <div class="d-flex justify-content-between small"><span>Crítico:</span><span id="prob-critico">4.0%</span></div>
+                <div class="progress" style="height: 6px;"><div class="progress-bar bg-dark" id="bar-critico" style="width: 4.0%"></div></div>
+              </div>
+            </div>
+
+            <!-- Fatores Explicáveis de Risco -->
+            <div class="mb-3">
+              <div class="small fw-bold text-muted mb-2"><i class="bi bi-exclamation-triangle text-danger me-1"></i> FATORES DE ALERTA IDENTIFICADOS:</div>
+              <ul class="list-group list-group-flush small" id="lista-fatores">
+                <li class="list-group-item px-0 py-1 text-danger">&bull; Temperatura corporal febril (39.8°C).</li>
+                <li class="list-group-item px-0 py-1 text-danger">&bull; Letargia acentuada na telemetria IoB (28/100).</li>
+                <li class="list-group-item px-0 py-1 text-danger">&bull; Vacina V10 atrasada em 45 dias.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 bg-light rounded-3 border">
+              <div class="small fw-bold text-muted">AÇÃO RECOMENDADA PELO MODELO:</div>
+              <div class="small fw-bold text-dark mt-1" id="rec-imediata">
+                Recomenda-se avaliação veterinária em até 24-48 horas para investigação diagnóstica de febre/letargia.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 3: IA Generativa & Assistente Clínico -->
+      <div class="col-lg-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills" id="ai-tabs" role="tablist">
+              <li class="nav-item">
+                <button class="nav-link active small py-1 px-3" id="tab-tutor" data-bs-toggle="tab" data-bs-target="#content-tutor">
+                  <i class="bi bi-person-heart me-1"></i>Tutor Copilot
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link small py-1 px-3" id="tab-vet" data-bs-toggle="tab" data-bs-target="#content-vet">
+                  <i class="bi bi-clipboard2-pulse me-1"></i>Vet Assistant (SOAP)
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            
+            <div class="tab-content" id="ai-tab-content">
+              
+              <!-- Tab 1: Tutor Copilot (Linguagem Empática e Clara) -->
+              <div class="tab-pane fade show active" id="content-tutor">
+                <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                  <i class="bi bi-robot text-primary fs-4"></i>
+                  <div>
+                    <h6 class="fw-bold mb-0" id="tutor-titulo">Alerta de Saúde: Rex apresenta sinais de febre</h6>
+                    <small class="text-muted">Explicação personalizada em linguagem natural</small>
+                  </div>
+                </div>
+
+                <div class="alert alert-light border small mb-3" id="tutor-mensagem">
+                  A coleira inteligente do Rex detectou uma temperatura de <strong>39.8°C</strong>, caracterizando um quadro febril para um animal de porte grande. O sensor de movimento também registrou uma queda na atividade diária (28/100), sugerindo dor ou infecção inicial.
+                </div>
+
+                <div class="mb-3">
+                  <div class="small fw-bold text-muted mb-2">O QUE VOCÊ DEVE FAZER AGORA:</div>
+                  <ul class="list-unstyled small" id="tutor-orientacoes">
+                    <li class="mb-1"><i class="bi bi-check-circle-fill text-danger me-2"></i>Não dê remédios humanos (tóxicos para cães).</li>
+                    <li class="mb-1"><i class="bi bi-check-circle-fill text-danger me-2"></i>Mantenha o pet em local fresco e com água.</li>
+                    <li class="mb-1"><i class="bi bi-check-circle-fill text-danger me-2"></i>Agende uma consulta presencial em até 24 horas.</li>
+                  </ul>
+                </div>
+
+                <div class="p-2 bg-danger-subtle text-danger rounded text-center small fw-bold" id="tutor-call-to-action">
+                  <i class="bi bi-calendar-check me-1"></i> Agendamento Prioritário Sugerido na Clyvo Vet
+                </div>
+              </div>
+
+              <!-- Tab 2: Vet Clinical Assistant (Prontuário SOAP) -->
+              <div class="tab-pane fade" id="content-vet">
+                <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                  <span class="fw-bold small text-muted">BRIEFING CLÍNICO PRÉ-CONSULTA (SOAP)</span>
+                  <span class="badge bg-secondary">CRMV Decision Support</span>
+                </div>
+
+                <div class="soap-section">
+                  <div class="soap-label">S &bull; Subjetivo:</div>
+                  <div class="small text-secondary" id="soap-s">
+                    Paciente Rex, Canino (Golden, grande), 4.5 anos. Telemetria acusa hipocinesia acentuada nas últimas 24h.
+                  </div>
+                </div>
+
+                <div class="soap-section">
+                  <div class="soap-label">O &bull; Objetivo (IoT + Biometria):</div>
+                  <div class="small text-secondary" id="soap-o">
+                    Temp: 39.8°C (DHT22) | Peso: 29.5 kg (-3.2%) | Vacina: 45 dias atraso
+                  </div>
+                </div>
+
+                <div class="soap-section">
+                  <div class="soap-label">A &bull; Avaliação &amp; Diagnósticos Diferenciais:</div>
+                  <div class="small text-secondary" id="soap-a">
+                    Síndrome Febril Infecciosa (viral/bactéria), Hemoparasitose ou Estresse Térmico.
+                  </div>
+                </div>
+
+                <div class="soap-section">
+                  <div class="soap-label">P &bull; Plano / Conduta Sugerida:</div>
+                  <div class="small text-secondary" id="soap-p">
+                    Termometria retal confirmatória, Hemograma + PCR e regularização profilática V10.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha Inferior: Telemetria ESP32 e Conexão MQTT -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-terminal text-info me-2"></i>Fluxo de Dados em Tempo Real: Wearable ESP32 &rarr; MQTT HiveMQ &rarr; Pipeline de IA</span>
+            <span class="badge bg-dark font-monospace">Tópico: petcare360/telemetria</span>
+          </div>
+          <div class="card-body py-2">
+            <div class="terminal-console" id="terminal-mqtt">
+              [MQTT CONNECTED] Conectado ao Broker HiveMQ (broker.hivemq.com:1883)...<br>
+              [SUBSCRIBE] Escutando mensagens no tópico: petcare360/telemetria<br>
+              [TELEMETRIA INGESTION] {"pet_id": 1, "temperatura": 39.8, "umidade": 54.0, "status": "ALERTA_FEBRE", "timestamp": 125000}<br>
+              [AI INFERENCE PIPELINE] Telemetria encaminhada para RandomForestClassifier &bull; Nível: ALTO (78.9%)<br>
+              [GENERATIVE COPILOT] Briefing gerado e notificação enviada ao Tutor e à Clínica CLYVO VET.<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let dadosPacientes = {};
+
+    async function init() {
+      try {
+        const resp = await fetch('/api/v1/ia/pacientes-demo');
+        dadosPacientes = await resp.json();
+        carregarPaciente();
+      } catch (e) {
+        console.error('Erro ao inicializar:', e);
+      }
+    }
+
+    function carregarPaciente() {
+      const key = document.getElementById('select-paciente').value;
+      const pet = dadosPacientes[key];
+      if (!pet) return;
+
+      document.getElementById('p-especie').textContent = pet.especie + ' - ' + pet.raca;
+      document.getElementById('p-idade').textContent = pet.idade_anos + ' anos / ' + pet.porte;
+      document.getElementById('p-historico').textContent = pet.historico;
+
+      document.getElementById('input-temp').value = pet.temperatura_atual;
+      document.getElementById('val-temp').textContent = pet.temperatura_atual.toFixed(1) + ' °C';
+
+      document.getElementById('input-ativ').value = pet.indice_atividade_iob;
+      document.getElementById('val-ativ').textContent = Math.round(pet.indice_atividade_iob) + ' / 100';
+
+      document.getElementById('input-vacina').value = pet.atraso_vacina_dias;
+      document.getElementById('input-peso').value = pet.variacao_peso_pct;
+
+      executarAnalise();
+    }
+
+    function atualizarSliders() {
+      const temp = parseFloat(document.getElementById('input-temp').value);
+      const ativ = parseFloat(document.getElementById('input-ativ').value);
+      document.getElementById('val-temp').textContent = temp.toFixed(1) + ' °C';
+      document.getElementById('val-ativ').textContent = Math.round(ativ) + ' / 100';
+      executarAnalise();
+    }
+
+    async function executarAnalise() {
+      const key = document.getElementById('select-paciente').value;
+      const basePet = dadosPacientes[key] || {};
+
+      const payload = {
+        ...basePet,
+        temperatura_atual: parseFloat(document.getElementById('input-temp').value),
+        indice_atividade_iob: parseFloat(document.getElementById('input-ativ').value),
+        atraso_vacina_dias: parseInt(document.getElementById('input-vacina').value),
+        variacao_peso_pct: parseFloat(document.getElementById('input-peso').value)
+      };
+
+      // Adiciona linha no terminal MQTT
+      logTerminal(`[TELEMETRIA INGESTION] {"pet": "${payload.nome}", "temperatura": ${payload.temperatura_atual}, "atividade": ${payload.indice_atividade_iob}, "atraso_vacina": ${payload.atraso_vacina_dias}}`);
+
+      try {
+        const resp = await fetch('/api/v1/ia/analise-completa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const res = await resp.json();
+        renderizarResultados(res);
+      } catch (e) {
+        console.error('Erro na análise:', e);
+      }
+    }
+
+    function renderizarResultados(res) {
+      const ml = res.predicao_machine_learning;
+      const tutor = res.ia_generativa_tutor;
+      const vet = res.ia_generativa_veterinario;
+
+      // Atualiza Badge e Score
+      const badge = document.getElementById('risk-badge');
+      badge.className = 'risk-badge risk-' + ml.nivel_risco;
+      badge.textContent = ml.nivel_risco;
+      document.getElementById('risk-score').textContent = ml.score_risco + '%';
+
+      // Atualiza Probabilidades
+      document.getElementById('prob-baixo').textContent = ml.probabilidades.BAIXO + '%';
+      document.getElementById('bar-baixo').style.width = ml.probabilidades.BAIXO + '%';
+
+      document.getElementById('prob-mod').textContent = ml.probabilidades.MODERADO + '%';
+      document.getElementById('bar-mod').style.width = ml.probabilidades.MODERADO + '%';
+
+      document.getElementById('prob-alto').textContent = ml.probabilidades.ALTO + '%';
+      document.getElementById('bar-alto').style.width = ml.probabilidades.ALTO + '%';
+
+      document.getElementById('prob-critico').textContent = ml.probabilidades.CRITICO + '%';
+      document.getElementById('bar-critico').style.width = ml.probabilidades.CRITICO + '%';
+
+      // Fatores de risco
+      const lista = document.getElementById('lista-fatores');
+      lista.innerHTML = ml.fatores_alerta.map(f => `<li class="list-group-item px-0 py-1 text-danger">&bull; ${f}</li>`).join('');
+      document.getElementById('rec-imediata').textContent = ml.recomendacao_imediata;
+
+      // Tutor Copilot
+      document.getElementById('tutor-titulo').textContent = tutor.titulo;
+      document.getElementById('tutor-mensagem').innerHTML = tutor.mensagem_principal;
+      document.getElementById('tutor-orientacoes').innerHTML = tutor.pontos_observacao.map(o => `<li class="mb-1"><i class="bi bi-check-circle-fill text-${tutor.requer_urgencia ? 'danger' : 'success'} me-2"></i>${o}</li>`).join('');
+      document.getElementById('tutor-call-to-action').textContent = tutor.acao_recomendada;
+
+      // Vet SOAP
+      const soap = vet.prontuario_soap;
+      document.getElementById('soap-s').textContent = soap.S_Subjetivo;
+      document.getElementById('soap-o').textContent = `Temp: ${soap.O_Objetivo.temperatura_iot} | Peso: ${soap.O_Objetivo.peso_atual} (${soap.O_Objetivo.variacao_peso_recente}) | Vacina: ${soap.O_Objetivo.status_vacinal}`;
+      document.getElementById('soap-a').textContent = `IRP: ${soap.A_Avaliacao.indice_risco_preventivo_irp} | Diferenciais: ` + soap.A_Avaliacao.diagnosticos_diferenciais_sugeridos.join(', ');
+      document.getElementById('soap-p').textContent = soap.P_Plano_Conduta.join(' ');
+
+      logTerminal(`[AI RESULT] Risco Classificado: ${ml.nivel_risco} (${ml.score_risco}%) &bull; Copiloto do Tutor e SOAP Veterinário atualizados.`);
+    }
+
+    function logTerminal(msg) {
+      const term = document.getElementById('terminal-mqtt');
+      const time = new Date().toLocaleTimeString();
+      term.innerHTML += `[${time}] ${msg}<br>`;
+      term.scrollTop = term.scrollHeight;
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
