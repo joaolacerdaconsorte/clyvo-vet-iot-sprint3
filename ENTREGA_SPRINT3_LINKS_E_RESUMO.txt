@@ -16,10 +16,11 @@ TURMA: 2TDSPW
 --------------------------------------------------------------------------------
 2. LINKS OBRIGATÓRIOS DE ENTREGA (CONFORME EDITAL)
 --------------------------------------------------------------------------------
-• LINK DO VÍDEO PITCH DE APRESENTAÇÃO (DURAÇÃO: 5m 41s • VOZ GOOGLE CLOUD CHIRP 3 HD):
-  Google Drive (Acesso Público Ativo):
+• LINK DO VÍDEO PITCH NO YOUTUBE (MODO NÃO LISTADO — DURAÇÃO: 5m 41s):
+  https://youtu.be/6eNdyt8E9Jk
+
+• LINK DO VÍDEO DE BACKUP NO GOOGLE DRIVE (ACESSO PÚBLICO):
   https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing
-  (Observação: O arquivo em vídeo mp4 também está disponível no Drive para upload no YouTube em modo Não Listado conforme edital).
 
 • LINK DO REPOSITÓRIO NO GITHUB (CÓDIGO-FONTE, MODELO, FIRMWARE & README):
   https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3

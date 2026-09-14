@@ -88,24 +88,32 @@ def create_pdf(filename):
     # Links Box
     c.setStrokeColorRGB(0.1, 0.1, 0.1)
     c.setLineWidth(1)
-    c.rect(MARGIN_X, y - 95, PRINTABLE_W, 95, stroke=1, fill=0)
+    c.rect(MARGIN_X, y - 110, PRINTABLE_W, 110, stroke=1, fill=0)
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X + 16, y - 20, "ENTREGÁVEIS OBRIGATÓRIOS CONFORME EDITAL FIAP:")
-    c.drawString(MARGIN_X + 16, y - 40, "• Repositório GitHub (Código, IA, Firmware & README):")
+    c.drawString(MARGIN_X + 16, y - 18, "ENTREGÁVEIS OBRIGATÓRIOS CONFORME EDITAL FIAP:")
+    
+    c.drawString(MARGIN_X + 16, y - 36, "• Link do Vídeo no YouTube (Modo Não Listado — 5m 41s):")
     c.setFont("HelvBold", 8.5)
     c.setFillColorRGB(0.2, 0.4, 0.8)
-    c.drawString(MARGIN_X + 26, y - 52, "https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3")
+    c.drawString(MARGIN_X + 26, y - 48, "https://youtu.be/6eNdyt8E9Jk")
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X + 16, y - 70, "• Vídeo Pitch de Apresentação (5m 41s • Google Cloud Chirp 3 HD):")
+    c.drawString(MARGIN_X + 16, y - 64, "• Repositório GitHub (Código, IA, Firmware & README):")
     c.setFont("HelvBold", 8.5)
     c.setFillColorRGB(0.2, 0.4, 0.8)
-    c.drawString(MARGIN_X + 26, y - 82, "https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing")
+    c.drawString(MARGIN_X + 26, y - 76, "https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3")
 
-    y -= 120
+    c.setFont("HelvBold", 9)
+    c.setFillColorRGB(0.1, 0.1, 0.1)
+    c.drawString(MARGIN_X + 16, y - 92, "• Link Alternativo do Vídeo no Google Drive (Backup):")
+    c.setFont("HelvBold", 8)
+    c.setFillColorRGB(0.4, 0.4, 0.4)
+    c.drawString(MARGIN_X + 26, y - 103, "https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing")
+
+    y -= 130
 
     # Equipe Table
     c.setFont("HelvBold", 10)

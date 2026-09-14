@@ -19,7 +19,10 @@ TURMA: 2TDSPW
 • LINK DO REPOSITÓRIO GITHUB (PÚBLICO E COMPLETO):
   https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3
 
-• LINK DO VÍDEO PITCH DE APRESENTAÇÃO (GOOGLE DRIVE / FULL HD 1080p — 5m 39s):
+• LINK DO VÍDEO PITCH NO YOUTUBE (MODO NÃO LISTADO — 5m 41s):
+  https://youtu.be/6eNdyt8E9Jk
+
+• LINK DO VÍDEO NO GOOGLE DRIVE (BACKUP — FULL HD 1080p):
   https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing
 
 • LINK DA SIMULAÇÃO IOT NO WOKWI (ESP32 + SENSOR DHT22 + LED RGB + HIVEMQ MQTT):

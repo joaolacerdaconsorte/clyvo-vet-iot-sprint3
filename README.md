@@ -22,9 +22,10 @@ Repositório oficial da entrega da **Sprint 3** para a disciplina **Disruptive A
 
 ## 🔗 Links de Acesso Rápido
 
-* **Repositório GitHub:** [https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3](https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3)
-* **Simulação IoT Wokwi (ESP32 + DHT22 + RGB):** [https://wokwi.com/projects/464135788106122241](https://wokwi.com/projects/464135788106122241)
-* **Vídeo Pitch da Solução (Google Drive - Full HD 1080p • 5m 39s):** [https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing](https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing)
+* **Vídeo Pitch da Solução no YouTube (Modo Não Listado — 5m 41s):** [https://youtu.be/6eNdyt8E9Jk](https://youtu.be/6eNdyt8E9Jk)
+* **Vídeo Pitch de Backup (Google Drive — Full HD 1080p):** [https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing](https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing)
+* **Repositório GitHub Oficial:** [https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3](https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3)
+* **Simulação IoT Wokwi (ESP32 + DHT22 + LED RGB + MQTT HiveMQ):** [https://wokwi.com/projects/464135788106122241](https://wokwi.com/projects/464135788106122241)
 
 ---
 
