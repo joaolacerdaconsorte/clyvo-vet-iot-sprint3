@@ -24,7 +24,7 @@ Repositório oficial da entrega da **Sprint 3** para a disciplina **Disruptive A
 
 * **Repositório GitHub:** [https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3](https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3)
 * **Simulação IoT Wokwi (ESP32 + DHT22 + RGB):** [https://wokwi.com/projects/464135788106122241](https://wokwi.com/projects/464135788106122241)
-* **Vídeo Pitch da Solução (Google Drive):** [https://drive.google.com/file/d/clyvo-vet-iot-sprint3-pitch/view](https://drive.google.com/file/d/clyvo-vet-iot-sprint3-pitch/view) *(Atualizado com link direto do Drive)*
+* **Vídeo Pitch da Solução (Google Drive - Full HD 1080p • 5m 39s):** [https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing](https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing)
 
 ---
 

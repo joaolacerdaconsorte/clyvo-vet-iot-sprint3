@@ -11,7 +11,8 @@ from flask_cors import CORS
 from modelo_preditivo import ClassificadorRiscoVeterinario
 from agente_generativo import AgenteGenerativoVeterinario
 
-app = Flask(__name__, template_folder='templates')
+TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+app = Flask(__name__, template_folder=TEMPLATE_DIR)
 CORS(app)
 
 # Inicialização dos componentes de IA

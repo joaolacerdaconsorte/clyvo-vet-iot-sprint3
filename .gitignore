@@ -32,6 +32,10 @@ ENV/
 *.swp
 *.swo
 
+# Video rendering and media artifacts
+video_pitch/
+*.mp4
+
 # OS Generated
 .DS_Store
 Thumbs.db
