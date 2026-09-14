@@ -100,7 +100,7 @@ def create_pdf(filename):
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X + 16, y - 70, "• Vídeo Pitch de Apresentação (5m 30s • Estilo Editorial Suíço):")
+    c.drawString(MARGIN_X + 16, y - 70, "• Vídeo Pitch de Apresentação (5m 41s • Google Cloud Chirp 3 HD):")
     c.setFont("HelvBold", 8.5)
     c.setFillColorRGB(0.2, 0.4, 0.8)
     c.drawString(MARGIN_X + 26, y - 82, "https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing")
