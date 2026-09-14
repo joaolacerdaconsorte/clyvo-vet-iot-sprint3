@@ -1,0 +1,130 @@
+================================================================================
+FIAP — CHALLENGE 2026 | DISRUPTIVE ARCHITECTURES: IOT, IOB & GENERATIVE IA
+DISCIPLINA: Disruptive Architectures: IoT, IoB & Generative IA — 3ª SPRINT
+PROJETO: CLYVO VET (PetCare 360)
+TURMA: 2TDSPW
+================================================================================
+
+--------------------------------------------------------------------------------
+1. INTEGRANTES DA EQUIPE (TURMA 2TDSPW)
+--------------------------------------------------------------------------------
+• João Vitor Lacerda        — RM 565565
+• Kauan Vieira de Lima      — RM 565403
+• Murillo Fernandes Carapia — RM 564969
+• Pedro de Matos Previtali  — RM 564184
+
+--------------------------------------------------------------------------------
+2. LINKS OBRIGATÓRIOS DE ENTREGA (PORTAL FIAP)
+--------------------------------------------------------------------------------
+• LINK DO REPOSITÓRIO GITHUB (PÚBLICO E COMPLETO):
+  https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3
+
+• LINK DO VÍDEO PITCH DE APRESENTAÇÃO (GOOGLE DRIVE / FULL HD 1080p — 5m 39s):
+  https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing
+
+• LINK DA SIMULAÇÃO IOT NO WOKWI (ESP32 + SENSOR DHT22 + LED RGB + HIVEMQ MQTT):
+  https://wokwi.com/projects/464135788106122241
+
+--------------------------------------------------------------------------------
+3. DEFINIÇÃO DO PROBLEMA DE NEGÓCIO E PAPEL DA IA
+--------------------------------------------------------------------------------
+• O PROBLEMA DE NEGÓCIO:
+  No setor veterinário tradicional, o cuidado à saúde é predominantemente reativo.
+  Cães e gatos instintivamente mascaram dor e sintomas biológicos nos estágios
+  iniciais, e entre uma consulta anual e outra há um completo "apagão" sobre a
+  temperatura, variações de peso e padrão motor do pet (Internet of Behaviors - IoB).
+  Isso retarda o diagnóstico, transformando quadros simples em internações caras de
+  UTI e sobrecarregando clínicas com anamneses manuais e subjetivas.
+
+• A SOLUÇÃO CLYVO VET (PETCARE 360):
+  Estabelece uma jornada contínua e preventiva 360°. Coleiras inteligentes vestíveis
+  (ESP32) realizam monitoramento de temperatura corporal, microclima e movimentação
+  motora, transmitindo dados via protocolo MQTT (HiveMQ) para um ecossistema de
+  Inteligência Artificial Híbrida em nuvem.
+
+• JUSTIFICATIVA DA ABORDAGEM HÍBRIDA DE IA:
+  - Por que não apenas IA Generativa (LLM puro)?
+    Modelos puramente generativos sofrem de alucinações e variabilidade em limiares
+    vitais fisiológicos (e.g. 39.8°C vs 40.5°C), além de apresentarem custo e
+    latência inviáveis para fluxos massivos de telemetria IoT contínua.
+  - Por que não apenas Machine Learning Tradicional?
+    Modelos preditivos tradicionais retornam apenas números e probabilidades frias
+    (e.g. Score: 78.5%), incapazes de acolher o tutor com empatia ou de redigir
+    prontuários clínicos estruturados com raciocínio contextual.
+  - A Solução Híbrida Sinergética:
+    1. Camada Preditiva (Random Forest Classifier - 93.4% de Acurácia):
+       Analisa 10 variáveis clínicas e telemétricas, calcula o Índice de Risco
+       Preventivo (IRP) e identifica os fatores determinantes de alerta (XAI).
+    2. Camada Generativa (Grounded Clinical Assistant):
+       Ancorada com precisão nos dados preditivos, gera duas saídas sob medida:
+       • Tutor Copilot: Mensagens empáticas sem jargões e agendamento em 1 clique.
+       • Assistente Clínico Veterinário: Prontuário no padrão internacional SOAP
+         (Subjetivo, Objetivo, Avaliação, Plano) com diagnósticos diferenciais.
+
+--------------------------------------------------------------------------------
+4. GOVERNANÇA ÉTICA, SEGURANÇA E PRIVACIDADE (LGPD)
+--------------------------------------------------------------------------------
+• Human-in-the-Loop Obrigatório:
+  A IA atua estritamente na triagem e no suporte à decisão médica. O diagnóstico
+  definitivo e a prescrição terapêutica são prerrogativas exclusivas do Médico
+  Veterinário com CRMV habilitado.
+• Minimização de Dados (LGPD):
+  O microcontrolador ESP32 trafega via rádio MQTT apenas identificadores opacos e
+  valores biométricos. Dados pessoais do tutor permanecem isolados e seguros no
+  banco de dados relacional.
+• Explicabilidade da IA (XAI):
+  Todas as inferências geram a lista objetiva dos fatores patológicos contribuintes,
+  eliminando o efeito de "caixa preta" e garantindo auditoria médica.
+
+--------------------------------------------------------------------------------
+5. COMO EXECUTAR O ECOSSISTEMA DE IA LOCALMENTE
+--------------------------------------------------------------------------------
+Pré-requisitos: Python 3.10+ instalado e Git.
+
+1. Clonar o repositório oficial:
+   git clone https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3.git
+   cd clyvo-vet-iot-sprint3
+
+2. Instalar dependências da IA:
+   cd clyvo_ai_engine
+   pip install -r requirements.txt
+
+3. Iniciar o servidor da IA e Dashboard:
+   python app_api.py
+
+4. Acessar o Dashboard Interativo no Navegador:
+   👉 http://localhost:5050
+
+   Recursos disponíveis na interface:
+   - Seleção de Pacientes Demo: Rex (Risco Alto), Luna (Risco Baixo), Thor (Crítico).
+   - Sliders Dinâmicos: Ajuste em tempo real da Temperatura DHT22 e Atividade IoB.
+   - Probabilidades Calibradas: Visualização das 4 classes de risco do Random Forest.
+   - Aba Tutor Copilot: Recomendações em linguagem afetiva e botão de agendamento.
+   - Aba Vet Assistant: Prontuário completo em formato clínico SOAP.
+   - Terminal de Telemetria: Monitoramento dos pacotes MQTT recebidos do HiveMQ.
+
+--------------------------------------------------------------------------------
+6. ESTRUTURA DOS ARQUIVOS NO REPOSITÓRIO
+--------------------------------------------------------------------------------
+clyvo-vet-iot-sprint3/
+├── README.md                            # Documentação geral e guia de execução
+├── documentos/
+│   ├── arquitetura.md                   # Especificação técnica e justificativa da IA
+│   ├── dados_ia.md                      # Dicionário de dados, features e governança
+│   └── diagrama-arquitetural.svg        # Diagrama vetorial completo em alta resolução
+├── iot-firmware/
+│   ├── sketch.ino                       # Código C++ ESP32 (DHT22, MQTT HiveMQ, RGB)
+│   ├── diagram.json                     # Layout esquemático do circuito no Wokwi
+│   ├── libraries.txt                    # Dependências de bibliotecas de firmware
+│   ├── wokwi-project.txt                # Metadados do projeto no simulador
+│   ├── links_entrega.txt                # Link direto da simulação Wokwi
+│   └── README.md                        # Documentação da camada IoT de borda
+└── clyvo_ai_engine/
+    ├── requirements.txt                 # Dependências Python (Flask, scikit-learn, joblib)
+    ├── modelo_preditivo.py              # Treinamento e inferência do Random Forest (IRP)
+    ├── modelo_risco_veterinario.joblib  # Modelo preditivo serializado (Acurácia: 93.40%)
+    ├── agente_generativo.py             # Agente de geração natural (Tutor e SOAP Vet)
+    ├── app_api.py                       # API REST Flask de ingestão e diagnóstico
+    └── templates/
+        └── dashboard_ia.html            # Dashboard web interativo e responsivo
+================================================================================
