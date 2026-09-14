@@ -1,0 +1,108 @@
+================================================================================
+FIAP — CHALLENGE 2026 | SPRINT 3
+DISCIPLINA: Disruptive Architectures: IoT, IoB & Generative IA
+PROJETO: CLYVO VET (PetCare 360)
+TURMA: 2TDSPW
+================================================================================
+
+--------------------------------------------------------------------------------
+1. IDENTIFICAÇÃO DA EQUIPE
+--------------------------------------------------------------------------------
+• João Vitor Lacerda        — RM 565565
+• Kauan Vieira de Lima      — RM 565403
+• Murillo Fernandes Carapia — RM 564969
+• Pedro de Matos Previtali  — RM 564184
+
+--------------------------------------------------------------------------------
+2. LINKS OBRIGATÓRIOS DE ENTREGA (CONFORME EDITAL)
+--------------------------------------------------------------------------------
+• LINK DO VÍDEO PITCH DE APRESENTAÇÃO (DURAÇÃO: 5m 30s):
+  Google Drive (Acesso Público Ativo):
+  https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing
+  (Observação: O arquivo em vídeo mp4 também está disponível no Drive para upload no YouTube em modo Não Listado conforme edital).
+
+• LINK DO REPOSITÓRIO NO GITHUB (CÓDIGO-FONTE, MODELO, FIRMWARE & README):
+  https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3
+
+• LINK DA SIMULAÇÃO IOT NO WOKWI (ESP32 + SENSOR DHT22 + LED RGB + HIVEMQ MQTT):
+  https://wokwi.com/projects/464135788106122241
+
+--------------------------------------------------------------------------------
+3. DEFINIÇÃO DO PROBLEMA DE NEGÓCIO E JORNADA DO PET
+--------------------------------------------------------------------------------
+O cuidado veterinário convencional é reativo e tardio. Pets possuem o instinto
+biológico de ocultar dor e vulnerabilidade em estágios patológicos iniciais.
+Entre consultas anuais, inexiste visibilidade contínua sobre a temperatura,
+peso e padrão motor do animal (Internet of Behaviors - IoB). Esse atraso
+diagnóstico transforma afecções simples em internações caras de UTI e
+sobrecarrega a equipe clínica com anamneses manuais e imprecisas.
+A Clyvo Vet estabelece uma jornada de cuidado preventivo contínuo 360 graus.
+
+--------------------------------------------------------------------------------
+4. ESCOLHA E JUSTIFICATIVA TÉCNICA DA ABORDAGEM DE IA
+--------------------------------------------------------------------------------
+Adotou-se uma Abordagem Híbrida e Complementar:
+• Por que não LLM puro?
+  Modelos de linguagem sofrem com risco de alucinações em limiares vitais
+  estritos (ex: 39.8°C vs 40.5°C), além de apresentarem custo e latência
+  inviáveis para fluxos massivos de streaming contínuo de telemetria IoT.
+• Por que não ML tradicional isolado?
+  Algoritmos tabulares geram apenas números frios (ex: Score IRP = 78.5%),
+  incapazes de acolher o tutor com empatia ou de estruturar prontuários médicos.
+• A Solução Híbrida Clyvo Vet:
+  1. Camada Preditiva (Random Forest Classifier - 93.40% de Acurácia):
+     Analisa 10 variáveis fisiológicas, calcula o Índice de Risco Preventivo (IRP)
+     e isola os fatores patológicos determinantes.
+  2. Camada Generativa (Grounded Clinical Assistant):
+     Ancorada com precisão no modelo preditivo, gera o Tutor Copilot (orientações
+     afetivas e agendamento 1-clique) e o Assistente Veterinário (prontuário
+     no padrão internacional SOAP com diagnósticos diferenciais).
+
+--------------------------------------------------------------------------------
+5. ESTRATÉGIA DE PERSONALIZAÇÃO E APOIO À TOMADA DE DECISÃO
+--------------------------------------------------------------------------------
+A IA segmenta a tomada de decisão em três níveis de priorização clínica:
+• Nível 01 (Prevenção Ativa): Pets saudáveis recebem reforço de cuidados e
+  lembretes de vacinação, mantendo fidelização e prevenção perene.
+• Nível 02 (Triagem Ambulatorial): Pets com febre e queda motora têm prontuário
+  SOAP estruturado previamente e tutores orientados a agendar consulta em 24h.
+• Nível 03 (Protocolo de Emergência): Casos críticos (hipertermia >40.2°C) disparam
+  alerta vermelho no wearable e encaminhamento imediato a pronto-socorro 24h.
+
+--------------------------------------------------------------------------------
+6. FLUXO DE DADOS ENTRE COMPONENTES (7 ETAPAS)
+--------------------------------------------------------------------------------
+1. Borda IoT: Coleira ESP32 afere temperatura (DHT22) e padrão motor IoB.
+2. Mensageria: Transmissão MQTT HiveMQ no tópico 'petcare360/telemetria'.
+3. Ingestão: API REST em nuvem valida o pacote e enriquece com histórico clínico.
+4. Feature Store: Vetor normalizado de 10 variáveis fisiológicas.
+5. Random Forest: Cálculo do IRP e extração dos fatores críticos de alerta.
+6. IA Generativa Grounded: Geração do Copilot do Tutor e da Nota Clínica SOAP.
+7. Camada de Aplicação: Sincronização com app do tutor e portal da clínica.
+
+--------------------------------------------------------------------------------
+7. DICIONÁRIO DE DADOS E FEATURES DA IA
+--------------------------------------------------------------------------------
+• especie_id (Categórica {0:Cão, 1:Gato})
+• porte_id (Categórica {0:P, 1:M, 2:G})
+• idade_anos (Float: 0.2 a 20.0)
+• temperatura_atual (Float: 36.0 a 42.5 °C)
+• delta_temp_24h (Float: -3.0 a +3.5 °C/dia)
+• umidade_ambiente (Float: 20.0 a 95.0 %)
+• atraso_vacina_dias (Inteiro: 0 a 365+ dias)
+• variacao_peso_pct (Float: -15.0% a +10.0% em 30 dias)
+• medicamento_continuo (Binário {0:Não, 1:Sim})
+• indice_atividade_iob (Float: 0 a 100 - Internet of Behaviors)
+Alvo: nivel_risco_id (0: Baixo, 1: Moderado, 2: Alto, 3: Crítico)
+
+--------------------------------------------------------------------------------
+8. GOVERNANÇA ÉTICA, SEGURANÇA E PRIVACIDADE (LGPD)
+--------------------------------------------------------------------------------
+• Human-in-the-Loop Obrigatório: A IA atua unicamente como suporte à decisão.
+  A conduta definitiva, diagnóstico e prescrição médica são exclusividades do
+  Médico Veterinário com CRMV, conforme diretrizes do CFMV.
+• Minimização de Dados (LGPD): Dispositivo na borda trafega apenas pet_id e
+  telemetria bruta; dados pessoais do tutor permanecem segregados e protegidos.
+• Explicabilidade (XAI): Toda predição isola os fatores biológicos de alerta,
+  eliminando o comportamento de caixa-preta.
+================================================================================
