@@ -2,7 +2,8 @@
 """
 generate_pitch_pdf.py
 Gera o documento técnico oficial da Sprint 3 em PDF no estilo suíço minimalista (Helvetica Bold).
-Atende 100% aos critérios de avaliação da FIAP.
+Inclui o Diagrama Arquitetural de Alta Resolução integrado na documentação.
+Atende 100% aos critérios e objetivos de avaliação da FIAP.
 """
 
 import os
@@ -20,7 +21,9 @@ MARGIN_TOP = 50.0
 RIGHT_MARGIN = PAGE_W - MARGIN_X
 PRINTABLE_W = PAGE_W - (2 * MARGIN_X)
 
-def draw_header_footer(c, page_num, total_pages=5):
+DIAGRAM_PNG = r"C:\Users\joaov\Desktop\clyvo-vet-iot-sprint3\documentos\diagrama-arquitetural-render.png"
+
+def draw_header_footer(c, page_num, total_pages=6):
     # Header
     c.setFont("HelvBold", 8)
     c.setFillColorRGB(0.1, 0.1, 0.1)
@@ -64,7 +67,7 @@ def draw_wrapped(c, text, x, y, font_name, font_size, leading, max_width, color=
 
 def create_pdf(filename):
     c = canvas.Canvas(filename, pagesize=A4)
-    total_pages = 5
+    total_pages = 6
 
     # ==================== PÁGINA 1: CAPA & LINKS OBRIGATÓRIOS ====================
     draw_header_footer(c, 1, total_pages)
@@ -88,32 +91,32 @@ def create_pdf(filename):
     # Links Box
     c.setStrokeColorRGB(0.1, 0.1, 0.1)
     c.setLineWidth(1)
-    c.rect(MARGIN_X, y - 110, PRINTABLE_W, 110, stroke=1, fill=0)
+    c.rect(MARGIN_X, y - 118, PRINTABLE_W, 118, stroke=1, fill=0)
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
     c.drawString(MARGIN_X + 16, y - 18, "ENTREGÁVEIS OBRIGATÓRIOS CONFORME EDITAL FIAP:")
     
-    c.drawString(MARGIN_X + 16, y - 36, "• Link do Vídeo no YouTube (Modo Não Listado — 5m 41s):")
+    c.drawString(MARGIN_X + 16, y - 36, "• Link do Vídeo Pitch no YouTube (Modo Não Listado — 5m 41s):")
     c.setFont("HelvBold", 8.5)
     c.setFillColorRGB(0.2, 0.4, 0.8)
     c.drawString(MARGIN_X + 26, y - 48, "https://youtu.be/6eNdyt8E9Jk")
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X + 16, y - 64, "• Repositório GitHub (Código, IA, Firmware & README):")
+    c.drawString(MARGIN_X + 16, y - 64, "• Repositório GitHub Oficial (Código, IA, Firmware & README):")
     c.setFont("HelvBold", 8.5)
     c.setFillColorRGB(0.2, 0.4, 0.8)
     c.drawString(MARGIN_X + 26, y - 76, "https://github.com/joaolacerdaconsorte/clyvo-vet-iot-sprint3")
 
     c.setFont("HelvBold", 9)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X + 16, y - 92, "• Link Alternativo do Vídeo no Google Drive (Backup):")
-    c.setFont("HelvBold", 8)
-    c.setFillColorRGB(0.4, 0.4, 0.4)
-    c.drawString(MARGIN_X + 26, y - 103, "https://drive.google.com/file/d/1lZBCuB3TDQ0cV9HAYb-eoJw-1KqXC87S/view?usp=sharing")
+    c.drawString(MARGIN_X + 16, y - 92, "• Simulação IoT no Wokwi (ESP32 + DHT22 + HiveMQ MQTT):")
+    c.setFont("HelvBold", 8.5)
+    c.setFillColorRGB(0.2, 0.4, 0.8)
+    c.drawString(MARGIN_X + 26, y - 104, "https://wokwi.com/projects/464135788106122241")
 
-    y -= 130
+    y -= 138
 
     # Equipe Table
     c.setFont("HelvBold", 10)
@@ -144,7 +147,7 @@ def create_pdf(filename):
     # Seção 1: Problema de Negócio
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "1. definição do problema de negócio.")
+    c.drawString(MARGIN_X, y, "1. definição do problema de negócio e jornada contínua.")
     y -= 14
 
     p1 = (
@@ -263,13 +266,65 @@ def create_pdf(filename):
 
     c.showPage()
 
-    # ==================== PÁGINA 3: FLUXO DE DADOS & ARQUITETURA ====================
+    # ==================== PÁGINA 3: DIAGRAMA ARQUITETURAL DA SOLUÇÃO ====================
     draw_header_footer(c, 3, total_pages)
     y = PAGE_H - 65
 
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "4. fluxo de dados e arquitetura de integração.")
+    c.drawString(MARGIN_X, y, "4. diagrama arquitetural da solução (visão ponta a ponta).")
+    y -= 14
+
+    p_diag_desc = (
+        "A arquitetura integra a camada de sensoriamento de borda (IoT/IoB), ingestão e mensageria em nuvem, "
+        "o motor analítico híbrido de Inteligência Artificial e a entrega de valor em interfaces dedicadas:"
+    )
+    y = draw_wrapped(c, p_diag_desc, MARGIN_X, y, "HelvBold", 8.5, 11.5, PRINTABLE_W)
+    y -= 10
+
+    # Render do Diagrama Arquitetural de Alta Resolução
+    diag_w = PRINTABLE_W
+    diag_h = diag_w * (680.0 / 1200.0) # Aspect ratio original 1200x680 -> ~280.6 pt
+    
+    if os.path.exists(DIAGRAM_PNG):
+        c.drawImage(DIAGRAM_PNG, MARGIN_X, y - diag_h, width=diag_w, height=diag_h, preserveAspectRatio=True)
+    else:
+        c.rect(MARGIN_X, y - diag_h, diag_w, diag_h, stroke=1, fill=0)
+        c.drawCentredString(MARGIN_X + (diag_w / 2.0), y - (diag_h / 2.0), "[DIAGRAMA ARQUITETURAL]")
+
+    y -= (diag_h + 16)
+
+    # Detalhamento das 4 Macro-Camadas Estruturais
+    c.setFont("HelvBold", 9)
+    c.setFillColorRGB(0.1, 0.1, 0.1)
+    c.drawString(MARGIN_X, y, "DETALHAMENTO TÉCNICO DAS 4 MACRO-CAMADAS DO ECOSSISTEMA:")
+    y -= 12
+
+    layers = [
+        ("CAMADA 01: BORDA IOT & IOB", "Coleira inteligente ESP32 com sensor térmico DHT22 e acelerômetro IoB. Publica leituras vitais compactadas via MQTT no tópico petcare360/telemetria."),
+        ("CAMADA 02: INGESTÃO & NUVEM", "Broker MQTT HiveMQ Cloud roteia payloads para a API REST. Validação de esquemas, enriquecimento com histórico do banco relacional Oracle e normalização."),
+        ("CAMADA 03: NÚCLEO DE IA HÍBRIDA", "Pipeline bifásico: Feature Store estruturada -> Random Forest Classifier (IRP e fatores críticos) -> Grounded GenAI Agent (geração controlada sem alucinações)."),
+        ("CAMADA 04: APLICAÇÕES & CLÍNICA", "Tutor Copilot (app mobile para tutor com linguagem humanizada e alertas) + Vet Clinical Portal (prontuários SOAP com diagnósticos diferenciais pré-formatados).")
+    ]
+
+    box_layer_h = 32
+    for lay_title, lay_body in layers:
+        c.rect(MARGIN_X, y - box_layer_h, PRINTABLE_W, box_layer_h, stroke=1, fill=0)
+        c.setFont("HelvBold", 7.5)
+        c.setFillColorRGB(0.1, 0.1, 0.1)
+        c.drawString(MARGIN_X + 8, y - 10, lay_title)
+        draw_wrapped(c, lay_body, MARGIN_X + 8, y - 20, "HelvBold", 6.8, 8.5, PRINTABLE_W - 16, color=(0.3, 0.3, 0.3))
+        y -= (box_layer_h + 5)
+
+    c.showPage()
+
+    # ==================== PÁGINA 4: FLUXO DE DADOS & GOVERNANÇA ÉTICA ====================
+    draw_header_footer(c, 4, total_pages)
+    y = PAGE_H - 65
+
+    c.setFont("HelvBold", 12)
+    c.setFillColorRGB(0.1, 0.1, 0.1)
+    c.drawString(MARGIN_X, y, "5. fluxo de dados detalhado entre componentes (7 etapas).")
     y -= 14
 
     p_flow = (
@@ -300,10 +355,10 @@ def create_pdf(filename):
 
     y -= 10
 
-    # Seção 5: Governança Ética & LGPD
+    # Seção 6: Governança Ética & LGPD
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "5. governança ética, segurança e privacidade (lgpd).")
+    c.drawString(MARGIN_X, y, "6. governança ética, segurança e privacidade (lgpd).")
     y -= 14
 
     gov_text = (
@@ -319,13 +374,13 @@ def create_pdf(filename):
 
     c.showPage()
 
-    # ==================== PÁGINA 4: DICIONÁRIO DE DADOS ====================
-    draw_header_footer(c, 4, total_pages)
+    # ==================== PÁGINA 5: DICIONÁRIO DE DADOS ====================
+    draw_header_footer(c, 5, total_pages)
     y = PAGE_H - 65
 
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "6. inventário e dicionário de dados da ia.")
+    c.drawString(MARGIN_X, y, "7. inventário e dicionário de dados da ia.")
     y -= 16
 
     c.setFont("HelvBold", 8.5)
@@ -397,13 +452,13 @@ def create_pdf(filename):
 
     c.showPage()
 
-    # ==================== PÁGINA 5: BENEFÍCIOS, HARDWARE & RESULTADOS ====================
-    draw_header_footer(c, 5, total_pages)
+    # ==================== PÁGINA 6: BENEFÍCIOS, HARDWARE & RESULTADOS ====================
+    draw_header_footer(c, 6, total_pages)
     y = PAGE_H - 65
 
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "7. benefícios do ecossistema para o tutor e para a clínica.")
+    c.drawString(MARGIN_X, y, "8. benefícios do ecossistema para o tutor e para a clínica.")
     y -= 16
 
     col_w = (PRINTABLE_W - 16) / 2
@@ -456,7 +511,7 @@ def create_pdf(filename):
     # Hardware & Simulação Wokwi
     c.setFont("HelvBold", 12)
     c.setFillColorRGB(0.1, 0.1, 0.1)
-    c.drawString(MARGIN_X, y, "8. prototipagem iot e simulação funcional no wokwi.")
+    c.drawString(MARGIN_X, y, "9. prototipagem funcional iot e simulação wokwi.")
     y -= 16
 
     p_wok = (
